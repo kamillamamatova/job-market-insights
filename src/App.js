@@ -1,27 +1,78 @@
-import React from 'react';
-import './index.css';
+import React, { useState } from "react";
+import "./index.css";
 import SearchForm from "./components/SearchForm";
+import fetchJobs from ".api/fetchJobs";
 
 function App(){
+  // Tracks the job results that are fetched from the API
+  const [jobs, setJobs] = useState([]);
+
   // This function will be triggered when the SearchForm is submitted
-  const handleSearch = ({ role, location}) => {
+  const handleSearch = async ({ role, location}) => {
+    // Calls the fetchJobs function and passes in role and location
+    const fetchedJobs = await fetchJobs(role, location);
     // Log the values to the console
     console.log("Search submitted for:", role, location);
+    console.log("Fetched jobs:", jobs);
+    setJobs(fetchedJobs);
   };
 
   return(
+    // Outer wrapper: full height screen, pink background, centered
     <div className = "min-h-screen bg-pink-50 flex justify-center items-center">
-      <div className = "p-10">
+      {/* Inner card container: padding, shadow, rounded corners */}
+      <div className = "p-10 bg-white rounded-lg shadow-md w-full max-w-xl">
+
+        {/* App title */}
         <h1 className = "text-3xl font-bold text-pink-400 mb-4">
           Job Market Insights
         </h1>
 
-        <p className = "text-gray-600 text-lg mt-1">
+        {/* Subheading */}
+        <p className = "text-gray-600 text-lg mb-6">
           Find trending roles and salary insights in real time.
         </p>
 
-        {/* Render the SearchForm component and pass the handleSearch function as a prop */}
+        {/* Renders the SearchForm component and pass the handleSearch function as a prop */}
         <SearchForm onSearch = {handleSearch} />
+
+        {/* Renders job results if any are available */}
+        <div className = "mt-6 space-y-4">
+          {/* Loops through each job and displays a job card */}
+          {jobs.map((job, index) => (
+            <div
+              key = {index}
+              className = "border rounded p-4 shadow-sm bg-gray-50 hover: bg-gray-100 transition"
+            >
+              {/* Job title */}
+              <h2 className = "text-xl font-semibold text-pink-700">
+                {job.job_title}
+              </h2>
+
+              {/* Company and location info */}
+              <p classname = "text-gray-600">
+                {job.employer_name} - {job.job_city}, {job.job_country}
+              </p>
+
+              {/* Optional job description snippet */}
+              {job.job_description && (
+                <p className = "text-sm mt-2 text-gray-700 line-clamp-3">
+                  {job.job_description}
+                </p>
+              )}
+
+              {/* Links to the full job posting */}
+              <a
+                href = {job.job_apply_link}
+                target = "_blank"
+                rel = "noopener noreferrer"
+                className = "inline-block mt-2 text-pink-600 hover:underline"
+              >
+                View Job
+              </a>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
