@@ -36,6 +36,8 @@ function App(){
 
         {/* Renders the SearchForm component and pass the handleSearch function as a prop */}
         <SearchForm onSearch = {handleSearch} />
+        {/* Renders the JobList component and passes the fetched jobs as a prop */}
+        <JobList job = {jobs} />
 
         {/* Renders job results if any are available */}
         <div className = "mt-6 space-y-4">
