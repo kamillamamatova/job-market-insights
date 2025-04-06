@@ -6,7 +6,7 @@ function JobList({jobs}){
     if(!Array.isArray(jobs)){
         return null;
     }
-    
+
     return(
         // Outer wrapper with vertical spacing between job items
         <div className = "mt-8 space-y-4">
@@ -32,7 +32,7 @@ function JobList({jobs}){
                         <a
                             href = {job.url} // Job URL from the API data
                             target = "_blank" // Opens in a new tab
-                            ref = "noopener noreferrer" // Security measure
+                            rel = "noopener noreferrer" // Security measure
                             className = "text-white bg-pink-500 hover:bg-pink-600 px-3 py-1 rounded"
                         > 
                             Apply
