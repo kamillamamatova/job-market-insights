@@ -1,10 +1,12 @@
 // JSX and component features
 import React from "react";
 
-// If jobs is undefined or not an array, return null
-if(!Array.isArray(jobs)) return null;
-
 function JobList({jobs}){
+    // If jobs is undefined or not an array, return null
+    if(!Array.isArray(jobs)){
+        return null;
+    }
+    
     return(
         // Outer wrapper with vertical spacing between job items
         <div className = "mt-8 space-y-4">
