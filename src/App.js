@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./index.css";
 import SearchForm from "./components/SearchForm";
 import fetchJobs from "./api/fetchJobs";
+import JobList from "./components/JobList";
 
 function App(){
   // Tracks the job results that are fetched from the API
