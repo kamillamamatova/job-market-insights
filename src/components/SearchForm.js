@@ -32,16 +32,16 @@ const SearchForm = ({ onSearch}) => {
             <input
                 type = "text"
                 placeholder = "Job title (e.g. Data Scientist)"
+                className = "w-full border p-2 rounded"
                 value = {role}
                 onChange = {(e) => setRole(e.target.value)}
-                className = "border p-2 rounded"
             />
             <input
                 type = "text"
                 placeholder = "Location (e.g. San Francisco)"
+                className = "w-full border p-2 rounded"
                 value = {location}
-                onChnage = {(e) => setLocation(e.target.value)}
-                className = "border p-2 rounded"
+                onChange = {(e) => setLocation(e.target.value)}
             />
 
             {/* Submit button
