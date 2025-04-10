@@ -10,11 +10,18 @@ function App(){
   const [jobs, setJobs] = useState([]);
   // Tracks the filter state for remote jobs
   const [remoteOnly, setRemoteOnly] = useState(false);
+  // Tracks the selected job type
+  const [jobType, setJobType] = useState("");
 
   // This function will be triggered when the SearchForm is submitted
   const handleSearch = async ({ role, location}) => {
+    // Saves remote and job type states
+    setRemoteOnly(remoteOnly);
+    setJobType(jobType);
+
     // Calls the fetchJobs function and passes in role and location
     const fetchedJobs = await fetchJobs(role, location);
+
     // Log the values to the console
     console.log("Search submitted for:", role, location);
     console.log("Fetched jobs:", jobs);
@@ -25,11 +32,16 @@ function App(){
   const handleToggleRemote = () => setRemoteOnly(!remoteOnly);
 
   // Filters jobs if "Remote Only" is checked
-  const filteredJobs = remoteOnly
-    ? jobs.filter((job) =>
-        job.location.toLowerCase().includes("remote")
-      )
-    : jobs;
+  const filteredJobs = jobs.filter((job) => {
+    // Only includes remote jobs if the filter is turned on
+    const isRemoteMatch = !remoteOnly || job.location?.toLowerCase().includes("remote");
+
+    //Only includes jobs that match the selected job type
+    const isJobTypeMatch = !jobType || job.job_type?.toLowerCase().includes(jobType);
+
+    // Only returns jobs that match both criterias
+    return isRemoteMatch && isJobTypeMatch;
+  });
 
   return(
     // Outer wrapper: full height screen, pink background, centered
@@ -57,7 +69,7 @@ function App(){
         />
 
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
-        <JobList job = {jobs} />
+        <JobList job = {filteredJobs} />
 
         {/* Renders job results if any are available */}
         <div className = "mt-6 space-y-4">
