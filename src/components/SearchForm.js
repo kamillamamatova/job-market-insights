@@ -8,13 +8,19 @@ const SearchForm = ({ onSearch}) => {
     // useState hook to manage the 'location' input field value (job location)
     const [location, setLocation] = useState("");
 
+    // useState hook to manage the 'remoteOnly' checkbox state
+    const [remoteOnly, setRemoteOnly] = useState(false);
+
+    // useState hook to manage the 'job type' from the dropdown
+    const [jobType, setJobType] = useState("");
+
     // This function is called when the form is submitted
     const handleSubmit = (e) => {
         // Prevents the default form submission behavior (page reload)
         e.preventDefault();
 
         // Calls the onSearch function (passed in from the parent) with the role and location
-        onSearch ({ role, location });
+        onSearch ({ role, location, remoteOnly, jobType }); 
     };
 
     // Return the JSX to render the form
@@ -29,6 +35,8 @@ const SearchForm = ({ onSearch}) => {
                 - value: bound to the role state variable
                 - onChange: updates role when user types
                 - className: Tailwind styles for border, padding, and rounding */}
+
+            {/* Job Title Input Field */}
             <input
                 type = "text"
                 placeholder = "Job title (e.g. Data Scientist)"
@@ -36,6 +44,8 @@ const SearchForm = ({ onSearch}) => {
                 value = {role}
                 onChange = {(e) => setRole(e.target.value)}
             />
+
+            {/* Location Input Field */}
             <input
                 type = "text"
                 placeholder = "Location (e.g. San Francisco)"
@@ -44,9 +54,30 @@ const SearchForm = ({ onSearch}) => {
                 onChange = {(e) => setLocation(e.target.value)}
             />
 
-            {/* Submit button
-                - type = "submit": triggers form submission
-                - Tailwind classes for color, padding, hover effect */}
+            {/* Remote Only Checkbox */}
+            <label className = "flex items-center gap-2 text-sm">
+                <input
+                    type = "checkbox"
+                    checked = {remoteOnly}
+                    onChange = {(e) => setRemoteOnly(e.target.checked)}
+                />
+                Remote only
+            </label>
+
+            {/* Job Type Dropdown Selector */}
+            <select
+                value = {jobType}
+                className = "border p-2 rounded"
+                onChange = {(e) => setJobType(e.target.value)}
+            >
+                <option value = "">Any Job Type</option>
+                <option value = "full-time">Full Time</option>
+                <option value = "part-time">Part Time</option>
+                <option value = "contract">Contract</option>
+                <option value = "internship">Internship</option>
+            </select>
+
+            {/* Submit button */}
             <button
                 type = "submit"
                 className = "bg-pink-400 text-white px-4 p-2 rounded hover:bg-pink-500 font-semibold"
