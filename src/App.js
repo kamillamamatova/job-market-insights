@@ -3,10 +3,13 @@ import "./index.css";
 import SearchForm from "./components/SearchForm";
 import fetchJobs from "./api/fetchJobs";
 import JobList from "./components/JobList";
+import Filters from "./components/Filters";
 
 function App(){
   // Tracks the job results that are fetched from the API
   const [jobs, setJobs] = useState([]);
+  // Tracks the filter state for remote jobs
+  const [remoteOnly, setRemoteOnly] = useState(false);
 
   // This function will be triggered when the SearchForm is submitted
   const handleSearch = async ({ role, location}) => {
@@ -17,6 +20,16 @@ function App(){
     console.log("Fetched jobs:", jobs);
     setJobs(fetchedJobs);
   };
+
+  // Toggles the remoteOnly filter
+  const handleToggleRemote = () => setRemoteOnly(!remoteOnly);
+
+  // Filters jobs if "Remote Only" is checked
+  const filteredJobs = remoteOnly
+    ? jobs.filter((job) =>
+        job.location.toLowerCase().includes("remote")
+      )
+    : jobs;
 
   return(
     // Outer wrapper: full height screen, pink background, centered
@@ -36,6 +49,13 @@ function App(){
 
         {/* Renders the SearchForm component and pass the handleSearch function as a prop */}
         <SearchForm onSearch = {handleSearch} />
+
+        {/* Filters section */}
+        <Filters
+          remoteOnly = {remoteOnly}
+          onToggleRemote = {handleToggleRemote}
+        />
+
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
         <JobList job = {jobs} />
 
