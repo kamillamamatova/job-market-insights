@@ -62,12 +62,6 @@ function App(){
         {/* Renders the SearchForm component and pass the handleSearch function as a prop */}
         <SearchForm onSearch = {handleSearch} />
 
-        {/* Filters section */}
-        <Filters
-          remoteOnly = {remoteOnly}
-          onToggleRemote = {handleToggleRemote}
-        />
-
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
         <JobList job = {filteredJobs} />
 
