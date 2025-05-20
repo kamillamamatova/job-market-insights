@@ -2,12 +2,12 @@
 const fetchJobs = async (role, location, remoteOnly, jobType) => {
     // Query parameters from user input
     const params = new URLSearchParams({
-        query: '${role} in ${location}', // Combines role and location
+        query: role,
+        ...(location && { location}),
+        ...(remoteOnly && { remote_jobs_only: "true"}),
+        ...(jobType && { employment_types: jobType}),
         page: "1", // Page number
         num_pages: "1", // Number of pages to fetch
-        location,
-        ...(remoteOnly && { remote_only: "true" }), // Adds remote_only parameter if remoteOnly is true
-        ...(jobType && { job_type: jobType}), // Adds job_type parameter if jobType is set
     });
     
     // Full API URL with query parameters based on user input
