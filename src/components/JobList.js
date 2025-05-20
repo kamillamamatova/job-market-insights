@@ -1,20 +1,23 @@
 // JSX and component features
 import React from "react";
 
-function JobList({jobs}){
+// Recieves the job list and a function to call when a job is clicked
+function JobList({ jobs, onSelect }){
     // If jobs is undefined or not an array, return null
-    if(!Array.isArray(jobs)){
-        return null;
-    }
+    if(!Array.isArray(jobs)) return null;
 
     return(
         // Outer wrapper with vertical spacing between job items
-        <div className = "mt-8 space-y-4">
+        <div className = "mt-6 space-y-4">
             {
                 // Loops through each job and displays a job card
                 jobs.map((job, index) => (
                     // Each item needs a unique key for React to track changes
-                    <div key = {index} className = "p-4 border rounded shadow-sm bg-white">
+                    <div 
+                    key = {index} 
+                    onClick = {() => onSelect(job)} // When clicked, calls onSelect with that job
+                    className = "p-4 border rounded shadow-sm bg-white hover:bg-gray-50 cursor-pointer transition"
+                    >
                         {/* Displays the job title in bold and larger text */}
                         <h2 className = "text-xl font-bold text-pink-600">
                             {job.title}
@@ -25,19 +28,6 @@ function JobList({jobs}){
 
                     {/* Displays the job location in italic gray text */}
                     <p className = "text-gray-500 italic"> {job.location} </p>
-
-                    {/* Spacing and a button to apply */}
-                    <div className = "mt-2">
-                        {/* Button opens the job link in a new tab */}
-                        <a
-                            href = {job.url} // Job URL from the API data
-                            target = "_blank" // Opens in a new tab
-                            rel = "noopener noreferrer" // Security measure
-                            className = "text-white bg-pink-500 hover:bg-pink-600 px-3 py-1 rounded"
-                        > 
-                            Apply
-                        </a>
-                    </div>
                     </div>
                 ))
             }
