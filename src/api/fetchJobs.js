@@ -1,14 +1,25 @@
-const fetchJobs = async (role, location) => {
+// Defines an async function that fetches job listings based on filters
+const fetchJobs = async (role, location, remoteOnly, jobType) => {
+    // Query parameters from user input
+    const params = new URLSearchParams({
+        query: '${role} in ${location}', // Combines role and location
+        page: "1", // Page number
+        num_pages: "1", // Number of pages to fetch
+        location,
+        ...(remoteOnly && { remote_only: "true" }), // Adds remote_only parameter if remoteOnly is true
+        ...(jobType && { job_type: jobType}), // Adds job_type parameter if jobType is set
+    });
+    
     // Full API URL with query parameters based on user input
-    const url = `https://jsearch.p.rapidapi.com/search?query=${role} in ${location}&page=1&num_pages=1`;
+    const url = `https://jsearch.p.rapidapi.com/search?${params.toString()}`;
 
     // Sets up the options for the fetch request, including headers
     const options = {
         method: 'GET', // GET request to retrieve data
         headers: {
-            'X-RapidAPI-Key': import.meta.env.VITE_RAPIDAPI_KEY,
+            'X-RapidAPI-Key': process.env.REACT_APP_RAPIDAPI_KEY,
             // Which API is being accessed
-            'X-RapidAPI-Host': import.meta.env.VITE_RAPIDAPI_HOST,
+            'X-RapidAPI-Host': process.env.REACT_APP_RAPIDAPI_HOST,
         },
     };
 

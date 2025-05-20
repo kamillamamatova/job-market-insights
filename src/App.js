@@ -3,7 +3,6 @@ import "./index.css";
 import SearchForm from "./components/SearchForm";
 import fetchJobs from "./api/fetchJobs";
 import JobList from "./components/JobList";
-import Filters from "./components/Filters";
 
 function App(){
   // Tracks the job results that are fetched from the API
@@ -20,12 +19,14 @@ function App(){
     setJobType(jobType);
 
     // Calls the fetchJobs function and passes in role and location
-    const fetchedJobs = await fetchJobs(role, location);
+    const fetchedJobs = await fetchJobs(role, location, remoteOnly, jobType);
+
+    // Updates the jobs state with the results
+    setJobs(fetchedJobs);
 
     // Log the values to the console
     console.log("Search submitted for:", role, location);
-    console.log("Fetched jobs:", jobs);
-    setJobs(fetchedJobs);
+    console.log("Fetched jobs:", fetchedJobs);
   };
 
   // Toggles the remoteOnly filter
@@ -61,6 +62,9 @@ function App(){
 
         {/* Renders the SearchForm component and pass the handleSearch function as a prop */}
         <SearchForm onSearch = {handleSearch} />
+
+        {/* Optional filters UI */}
+        {/* <Filters remoteOnly = {remoteOnly} onToggleRemote = {handleToggleRemote} >/ */}
 
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
         <JobList job = {filteredJobs} />

@@ -40,9 +40,9 @@ const SearchForm = ({ onSearch}) => {
             <input
                 type = "text"
                 placeholder = "Job title (e.g. Data Scientist)"
-                className = "w-full border p-2 rounded"
-                value = {role}
-                onChange = {(e) => setRole(e.target.value)}
+                className = "w-full border p-2 rounded" // Tailwind styling
+                value = {role} // Controlled input state
+                onChange = {(e) => setRole(e.target.value)} // Updates state on change
             />
 
             {/* Location Input Field */}
@@ -58,8 +58,8 @@ const SearchForm = ({ onSearch}) => {
             <label className = "flex items-center gap-2 text-sm">
                 <input
                     type = "checkbox"
-                    checked = {remoteOnly}
-                    onChange = {(e) => setRemoteOnly(e.target.checked)}
+                    checked = {remoteOnly} // Bind checkbox to remoteOnly state
+                    onChange = {(e) => setRemoteOnly(e.target.checked)} // Toggle state
                 />
                 Remote only
             </label>
@@ -68,7 +68,7 @@ const SearchForm = ({ onSearch}) => {
             <select
                 value = {jobType}
                 className = "border p-2 rounded"
-                onChange = {(e) => setJobType(e.target.value)}
+                onChange = {(e) => setJobType(e.target.value)} // Updates jobType state
             >
                 <option value = "">Any Job Type</option>
                 <option value = "full-time">Full Time</option>
@@ -79,7 +79,7 @@ const SearchForm = ({ onSearch}) => {
 
             {/* Submit button */}
             <button
-                type = "submit"
+                type = "submit" // Triggers form submission
                 className = "bg-pink-400 text-white px-4 p-2 rounded hover:bg-pink-500 font-semibold"
             >
                 Search Jobs
