@@ -3,6 +3,7 @@ import "./index.css";
 import SearchForm from "./components/SearchForm";
 import fetchJobs from "./api/fetchJobs";
 import JobList from "./components/JobList";
+import JobModal from "./components/JobModal";
 
 function App(){
   // Tracks the job results that are fetched from the API
@@ -11,6 +12,8 @@ function App(){
   const [remoteOnly, setRemoteOnly] = useState(false);
   // Tracks the selected job type
   const [jobType, setJobType] = useState("");
+  // Tracks the clicked job
+  const [selectedJob, setSelectedJob] = useState(null);
 
   // This function will be triggered when the SearchForm is submitted
   const handleSearch = async ({ role, location}) => {
@@ -67,7 +70,7 @@ function App(){
         {/* <Filters remoteOnly = {remoteOnly} onToggleRemote = {handleToggleRemote} >/ */}
 
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
-        <JobList job = {filteredJobs} />
+        <JobList job = {filteredJobs} onSelect = {setSelectedJobs} />
 
         {/* Renders job results if any are available */}
         <div className = "mt-6 space-y-4">
@@ -107,6 +110,7 @@ function App(){
           ))}
         </div>
       </div>
+      <JobModal job = {selectedJob} onCLose={() => setSelectedJob(null)} />
     </div>
   );
 }
