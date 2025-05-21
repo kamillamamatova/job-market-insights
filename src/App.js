@@ -54,7 +54,7 @@ function App(){
       <div className = "p-10 bg-white rounded-lg shadow-md w-full max-w-xl">
 
         {/* App title */}
-        <h1 className = "text-3xl font-bold text-pink-400 mb-4">
+        <h1 className = "text-3xl font-bold text-pink-600 mb-4">
           Job Market Insights
         </h1>
 
@@ -70,7 +70,7 @@ function App(){
         {/* <Filters remoteOnly = {remoteOnly} onToggleRemote = {handleToggleRemote} >/ */}
 
         {/* Renders the JobList component and passes the fetched jobs as a prop */}
-        <JobList job = {filteredJobs} onSelect = {setSelectedJobs} />
+        <JobList job = {filteredJobs} onSelect = {setSelectedJob} />
 
         {/* Renders job results if any are available */}
         <div className = "mt-6 space-y-4">
