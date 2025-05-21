@@ -65,7 +65,12 @@ const SearchForm = ({ onSearch}) => {
             </label>
 
             {/* Job Type Dropdown Selector */}
+            <label htmlFor = "job-type" className = "sr-only">
+                Job Type
+            </label>
             <select
+                id = "job-type"
+                name = "job-type"
                 value = {jobType}
                 className = "border p-2 rounded"
                 onChange = {(e) => setJobType(e.target.value)} // Updates jobType state
@@ -80,7 +85,7 @@ const SearchForm = ({ onSearch}) => {
             {/* Submit button */}
             <button
                 type = "submit" // Triggers form submission
-                className = "bg-pink-400 text-white px-4 p-2 rounded hover:bg-pink-500 font-semibold"
+                className = "bg-pink-600 text-white px-4 p-2 rounded hover:bg-pink-500 font-semibold"
             >
                 Search Jobs
             </button>
