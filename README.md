@@ -1,4 +1,4 @@
-# Job Market Insights
+# ✮ Job Market Insights ✮
 
 Job Market Insights is a responsive web application built with React and Tailwind CSS that allows users to search for job listings in real-time. It fetches data from the JSearch API to provide up-to-date information, allowing users to filter by role, location, job type, and remote work options.
 
